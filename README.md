@@ -7,10 +7,10 @@
    - [Data Source](#data-source)
    - [Tools utilized](#tools-utilized)
    - [Data Cleaning steps](#data-cleaning-steps)
-   - [Exploratory Data Analysis(EDA)](#exploratory-data-analysis(eda))
+   - [Key Metrics](#Key Metrics)
    - [DAX codes used for analysis](#dax-codes-used-for-analysis)
-   - [Results and findings](#results-and-findings)
-   - [Recommendition](#recommendition)
+   - [Results](#results)
+  
 
 ### Project Overview
 Analyze website traffic data across various traffic sources, device categories, browsers, content segments, and geographic locations. Additionally,
@@ -18,7 +18,7 @@ incorporate traffic trends observed over different time intervals.
 
 
 ### Data Source
-HR Data: The primary dataset usedd for this analysis is an excel format dataset cantaining detailed information about employees and wages.
+The primary dataset used for this analysis is an excel format dataset cantaining detailed information about page views, traffic sources ets.
 
 ### Tools Utilized
 
@@ -28,7 +28,7 @@ HR Data: The primary dataset usedd for this analysis is an excel format dataset 
 
 ### Data Cleaning steps
 
-In th intial data prepation phase, I performed the following tasks:
+In the intial data prepation phase, I performed the following tasks:
      1. Data Loading and inspection
      2. Handling the missing values
      3. Data cleansing and formating
@@ -66,34 +66,24 @@ Geography_based_Website_Traffic
          
   ### DAX codes used for analysis
         
-       - Average salary = Average(data[Salary]) 
-       - Avg.Leavebalance = Average(data[Leave Balance])
-       - Cumulatuve Count = VAR Currentdate =LASTDATE(data[Date of Join])
-                   Return
-                   Calculate([Head Count],all(data[Date of Join]),data[Date of Join] <= Currentdate)
-       - Head Count = count(data[Emp ID])
-       - LBL over 20days = Calculate([Head Count],data[Leave Balance] >20
-       - Max_Salary = Max(data[Salary])
-       - Min_Salary = Min(data[Salary])
+     -Average_Session_Duration = AVERAGEX(Website_Traffic_Data,Website_Traffic_Data[Session_Duration_Seconds]/3600)
+     -Bounce_Rate =   Var Bounced_Session = Calculate([total_Number of Sessions],Website_Traffic_Data[Page_Views_Per_Session]<2)
+                                            RETURN
+                                              Divide(Bounced_Session,[total_Number of Sessions])
+   
+     -Total_Number of Sessions = COUNT(Website_Traffic_Data[Session_Id])
+     -Total_Page_Views = Sum(Website_Traffic_Data[Page_Views_Per_Session])
+     -Total_session_Duration_Hours = SumX(Website_Traffic_Data,Website_Traffic_Data[Session_Duration_Seconds]/3600)
 
+  ### Results
 
-  ### Results and findings:
+    The dashboard offers a comprehensive 360-degree view of total website session duration , Bounce Rate etc. , including 
+    insights into how sessions , bounce rate are varying for different dimensions such as device types , content types & different
+    cities.
 
-       1. Increase in recruitment over time.
-       2. Product Manager Job title has the highest salary
-       3. Maximum nuber of employees are in mid 30years
 
    ### Output
-![Screenshot 2024-07-17 105642](https://github.com/user-attachments/assets/0e6ae838-d4fd-4d3b-85be-ffa8e262627e)
 
+![Webtrafficanalysis](https://github.com/user-attachments/assets/343996bf-34d6-4e6a-9b80-b7d95f7ad7ff)
 
-     
-
-
-  ### Recommendition:
-
-    Based on the analysis I recomend the following actions:
-
-       1. Pay grade of packing associate should be increaseed.
-       2. There are 29 employees with LBL over 20 days need to be given time for vacation so that there is work life balance.
-       3. Number of female employees need to be increaseed.
+![Webtraffic2](https://github.com/user-attachments/assets/da61eacc-bb2b-4512-9008-662c29317a26)
